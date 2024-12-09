@@ -1,4 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1d660cd2-2a66-49d1-bafa-09153c4e6826" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Treasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Treasure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/effects/AddShieldEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/AddShieldEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/effects/DisappearMonsterEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/DisappearMonsterEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/effects/IEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/IEffect.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2pyTgDbbuOFuNSjccKo7Msz985E" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Usuario/Desktop/DAM 1/off topic/dungeonGame/src"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Usuario\Desktop\DAM 1\off topic\dungeonGame\src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1d660cd2-2a66-49d1-bafa-09153c4e6826" name="Changes" comment="" />
+      <created>1733737426038</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733737426038</updated>
+    </task>
+    <servers />
+  </component>
 </project>

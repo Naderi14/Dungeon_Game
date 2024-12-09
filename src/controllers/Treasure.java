@@ -1,4 +1,6 @@
-import dungeonGame.effects.IEffect;
+package controllers;
+
+import effects.IEffect;
 
 public class Treasure {
     private int posX, posY, value;

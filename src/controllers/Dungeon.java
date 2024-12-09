@@ -1,6 +1,8 @@
-import dungeonGame.effects.AddShieldEffect;
-import dungeonGame.effects.DisappearMonsterEffect;
-import dungeonGame.effects.IEffect;
+package controllers;
+
+import effects.AddShieldEffect;
+import effects.DisappearMonsterEffect;
+import effects.IEffect;
 
 import java.util.ArrayList;
 import java.util.List;

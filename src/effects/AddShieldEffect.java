@@ -1,7 +1,7 @@
 package effects;
 
-import dungeonGame.Dungeon;
-import dungeonGame.Player;
+import controllers.Dungeon;
+import controllers.Player;
 
 public class AddShieldEffect implements IEffect{
     public void aplicarEfecto(Dungeon dungeon)

@@ -1,6 +1,6 @@
 package effects;
 
-import dungeonGame.Dungeon;
+import controllers.Dungeon;
 
 public interface IEffect
 {

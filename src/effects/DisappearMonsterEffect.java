@@ -1,7 +1,7 @@
 package effects;
 
-import dungeonGame.Dungeon;
-import dungeonGame.Monster;
+import controllers.Dungeon;
+import controllers.Monster;
 
 import java.util.List;
 import java.util.Random;
