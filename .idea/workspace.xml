@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d660cd2-2a66-49d1-bafa-09153c4e6826" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../DungeonGame by Fran.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Dungeon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../juego en java para divertirse.rtf" beforeDir="false" afterPath="$PROJECT_DIR$/../juego en java para divertirse.rtf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
