@@ -39,9 +39,9 @@ public class Player {
             {
                 case 'W':
                     if (posY - 1 < 0)
-                        break;
+                        isAvailableMove = true;
                     else if (mapa[posY - 1][posX] == '#')
-                        break;
+                        isAvailableMove = true;
                     else
                     {
                         updatePlayerPos('y', -1, mapa);
@@ -50,9 +50,9 @@ public class Player {
                     break;
                 case 'A':
                     if (posX - 1 < 0)
-                        break;
+                        isAvailableMove = true;
                     else if (mapa[posY][posX - 1] == '#')
-                        break;
+                        isAvailableMove = true;
                     else
                     {
                         updatePlayerPos('x', -1, mapa);
@@ -61,9 +61,9 @@ public class Player {
                     break;
                 case 'S':
                     if (posY + 1 >= mapa.length)
-                        break;
+                        isAvailableMove = true;
                     else if (mapa[posY + 1][posX] == '#')
-                        break;
+                        isAvailableMove = true;
                     else
                     {
                         updatePlayerPos('y', 1, mapa);
@@ -72,9 +72,9 @@ public class Player {
                     break;
                 case 'D':
                     if (posX + 1 >= mapa[0].length)
-                        break;
+                        isAvailableMove = true;
                     else if (mapa[posY][posX + 1] == '#')
-                        break;
+                        isAvailableMove = true;
                     else
                     {
                         updatePlayerPos('x', 1, mapa);
@@ -113,5 +113,10 @@ public class Player {
     public static void restarEscudo()
     {
         escudos--;
+    }
+
+    public static int getEscudos()
+    {
+        return escudos;
     }
 }

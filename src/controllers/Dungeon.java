@@ -48,6 +48,8 @@ public class Dungeon {
 
     private static char[][] mapa;
 
+    int[] valores = new int[10];
+
     public void mainDungeon()
     {
         inicializarNiveles();
@@ -58,9 +60,9 @@ public class Dungeon {
         {
             actualizarMapa();
             player.menuJugador();
+            verifyFoundedTreasure();
             moverEnemigos();
             verifyCollisionPlayerMonster();
-            verifyFoundedTreasure();
             isEndRound = verifyFindEscapeDungeon();
             if (!isEnd && !isEndRound)
                 mapa[player.getPosY()][player.getPosX()] = 'S';   // Cerciorarse que el player no desaparezca
@@ -116,7 +118,7 @@ public class Dungeon {
         ));
 
         levelList.add(new Level (new char[][] {     // LVL 1
-                {'S', 'T', 'T', 'T', 'T', 'T', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' '},
+                {'S', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' '},
                 {'#', '#', '#', '#', '#', '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'T'},
                 {' ', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#'},
                 {' ', '#', '#', '#', ' ', '#', ' ', '#', 'T', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -229,11 +231,17 @@ public class Dungeon {
     {
         for (Monster monster : monsterList)
         {
-            if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX())
+            if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() == 0)
             {
                 System.out.println("<!========= HAS SIDO DERROTADO POR UN MONSTRUO =========!>");
                 isEnd = true;
                 break;
+            }
+            else if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() > 0)
+            {
+                System.out.println("<!- El monstruo te ha quitado 1 escudo, te quedan " + Player.getEscudos() + " escudos -!>");
+                monster.retrocederPosicion(mapa);
+                Player.restarEscudo();
             }
         }
     }

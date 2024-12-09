@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d660cd2-2a66-49d1-bafa-09153c4e6826" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Dungeon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Treasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Treasure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/effects/AddShieldEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/AddShieldEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/effects/DisappearMonsterEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/DisappearMonsterEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/effects/IEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/effects/IEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

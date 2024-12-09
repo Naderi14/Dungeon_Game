@@ -6,6 +6,7 @@ import java.util.Random;
 public class Monster {
     private int posX, posY;
     private int planX, planY;   // Las variables estas se usarán para evitar errores futuros con los conflictos entre monstruos
+    private int beforeX, beforeY;
     private char symbol = 'M';
 
     public Monster(int x, int y)
@@ -90,6 +91,8 @@ public class Monster {
 
     public void applyMove(char[][] mapa)
     {
+        beforeX = posX;
+        beforeY = posY;
         mapa[posY][posX] = ' ';
         posX = planX;
         posY = planY;
@@ -100,6 +103,13 @@ public class Monster {
     {
         mapa[posY][posX] = ' ';
         monsterList.remove(this);
+    }
+
+    public void retrocederPosicion(char[][] mapa)
+    {
+        posX = beforeX;
+        posY = beforeY;
+        mapa[posY][posX] = symbol;
     }
 }
 
