@@ -7,12 +7,16 @@ import effects.IEffect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /*
+* Capas de complejidad que se podrian implementar
+*   - Al toparse con un monstruo que este te haga una pregunta o adivinanza y si la aciertas te salvas
+*
 * Hacer lógica de objetos usables instantaneos random al recoger tesoros:
 *   - Poder atravesar un muro 1 vez
-*   - Evitar que te mate el monstruo porque lo "esquivas" 1 vez
 *   - El score del jugador va bajando por cada paso y se define el score por el tamaño del nivel
+*       y por tanto hay un objeto que evita que no decaigan los puntos temporalmente
 *
 * Hacer lógica de maldiciones aleatorias al cargar el nivel:
 *   - Maldición de lentitud: el usuario en vez de dar 1 paso por frame, es 1 paso cada 2 frames
@@ -48,11 +52,10 @@ public class Dungeon {
 
     private static char[][] mapa;
 
-    int[] valores = new int[10];
-
     public void mainDungeon()
     {
         inicializarNiveles();
+        RiddleController.crearAdivinanzas();
         cargarNivel(levelList.get(nivelActual));
         boolean isEndRound = false;
 
@@ -233,8 +236,30 @@ public class Dungeon {
         {
             if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() == 0)
             {
-                System.out.println("<!========= HAS SIDO DERROTADO POR UN MONSTRUO =========!>");
-                isEnd = true;
+                Scanner sc = new Scanner(System.in);
+                System.out.println("\n\n\n\n<- Un monstruo te ha cazado y te propone una adivinanza para tu salvación ->");
+                int numAdivinanza = random.nextInt(RiddleController.adivinanzas.size());
+                RiddleData adivinanza = RiddleController.adivinanzas.get(numAdivinanza);
+                System.out.println("|| " + adivinanza.getAdivinanza() + " ||\n" +
+                        "1. " + adivinanza.getOpciones(1) + "\n" +
+                        "2. " + adivinanza.getOpciones(2) + "\n" +
+                        "3. " + adivinanza.getOpciones(3));
+
+                int numRespuesta;
+                do{
+                    numRespuesta = sc.nextInt();
+                } while (numRespuesta > 0 && numRespuesta < 4);
+
+                if (adivinanza.isRespuestaCorrecta(adivinanza.getOpciones(numRespuesta)))
+                {
+                    System.out.println("<- TE HAS SALVADO DE LA MUERTE ->");
+                    monster.retrocederPosicion(mapa);
+                }
+                else
+                {
+                    System.out.println("<!========= HAS SIDO DERROTADO POR UN MONSTRUO =========!>");
+                    isEnd = true;
+                }
                 break;
             }
             else if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() > 0)
@@ -284,8 +309,8 @@ public class Dungeon {
         int randomEffect = random.nextInt(2);
         switch (randomEffect)
         {
-            case 0: return new DisappearMonsterEffect();
-            case 1: return new AddShieldEffect();
+            case 0: return new DisappearMonsterEffect(66);
+            case 1: return new AddShieldEffect(66);
             default: return null;
         }
     }

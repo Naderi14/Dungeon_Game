@@ -2,6 +2,8 @@ package controllers;
 
 import effects.IEffect;
 
+import java.util.Random;
+
 public class Treasure {
     private int posX, posY, value;
     private IEffect effect;
@@ -31,6 +33,9 @@ public class Treasure {
 
     public void aplicarEfecto(Dungeon dungeon)
     {
-        effect.aplicarEfecto(dungeon);
+        Random random = new Random();
+
+        if (random.nextInt(101) > effect.getProbabilidad())
+            effect.aplicarEfecto(dungeon);
     }
 }

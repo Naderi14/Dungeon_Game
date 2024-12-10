@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class DisappearMonsterEffect implements IEffect {
     private Random random = new Random();
+    public int probabilidad;
+
+    public DisappearMonsterEffect(int probabilidad)
+    {
+        this.probabilidad = probabilidad;
+    }
 
     public void aplicarEfecto(Dungeon dungeon)
     {
@@ -20,5 +26,10 @@ public class DisappearMonsterEffect implements IEffect {
             System.out.println("<- Ha desaparecido un monstruo en (" + monster.getPosY() + "," + monster.getPosX() + ")");
             monster.killMonster(monsterList, Dungeon.getMapa());
         }
+    }
+
+    public int getProbabilidad()
+    {
+        return probabilidad;
     }
 }
