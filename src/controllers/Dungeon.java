@@ -3,6 +3,7 @@ package controllers;
 import effects.AddShieldEffect;
 import effects.DisappearMonsterEffect;
 import effects.IEffect;
+import effects.SlowEffectCurse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Scanner;
 
 /*
 * Capas de complejidad que se podrian implementar
-*   - Al toparse con un monstruo que este te haga una pregunta o adivinanza y si la aciertas te salvas
 *
 * Hacer lógica de objetos usables instantaneos random al recoger tesoros:
 *   - Poder atravesar un muro 1 vez
@@ -42,7 +42,7 @@ public class Dungeon {
     private Player player;
 
     private static int scoreSaved = 0;
-    private static int nivelActual = 0;
+    private static int numNivelActual = 0;
 
     public int posEscapeX;
     public int posEscapeY;
@@ -56,7 +56,7 @@ public class Dungeon {
     {
         inicializarNiveles();
         RiddleController.crearAdivinanzas();
-        cargarNivel(levelList.get(nivelActual));
+        cargarNivel(levelList.get(numNivelActual));
         boolean isEndRound = false;
 
         while (!isEnd)
@@ -64,9 +64,9 @@ public class Dungeon {
             actualizarMapa();
             player.menuJugador();
             verifyFoundedTreasure();
+            isEndRound = verifyFindEscapeDungeon();
             moverEnemigos();
             verifyCollisionPlayerMonster();
-            isEndRound = verifyFindEscapeDungeon();
             if (!isEnd && !isEndRound)
                 mapa[player.getPosY()][player.getPosX()] = 'S';   // Cerciorarse que el player no desaparezca
         }
@@ -75,71 +75,79 @@ public class Dungeon {
 
     private void inicializarNiveles()   // Sirve para crear los niveles disponibles en la lista de niveles
     {
-        levelList.add(new Level (new char[][] {     // LVL 2
-                {'S', '#', ' ', 'M'},
-                {' ', '#', ' ', 'E'},
-                {' ', 'T', ' ', ' '}
-        }));
-
         levelList.add(new Level (new char[][] {     // LVL 1
+                {'S', '#', 'M', 'M'},
+                {' ', '#', ' ', 'E'},
+                {' ', 'T', 'M', ' '}
+        }, getRandomCurse()));
+
+        levelList.add(new Level (new char[][] {     // LVL 2
                 {'S', ' ', 'E'},
                 {' ', '#', ' '},
-                {'T', ' ', 'M'}
-        }));
+                {'T', 'M', 'M'}
+        }, getRandomCurse()));
 
         levelList.add(new Level (new char[][] {     // LVL 3
                 {'S', '#', 'E', 'M', 'T'},
                 {' ', '#', '#', ' ', ' '},
-                {' ', ' ', ' ', '#', ' '},
-                {'T', ' ', ' ', ' ', ' '}
-        }));
+                {' ', ' ', 'M', '#', ' '},
+                {'T', 'M', ' ', ' ', ' '}
+        }, getRandomCurse()));
 
         levelList.add(new Level (new char[][] {     // LVL 4
                 {'S', ' ', '#', '#', '#', 'E'},
-                {' ', '#', ' ', 'M', '#', ' '},
+                {' ', '#', 'M', 'M', '#', ' '},
                 {' ', '#', ' ', ' ', '#', ' '},
                 {' ', ' ', ' ', '#', '#', ' '},
-                {'T', '#', ' ', ' ', ' ', ' '}
-        }));
+                {'T', '#', 'M', ' ', ' ', 'M'}
+        }, getRandomCurse()));
 
         levelList.add(new Level (new char[][] {     // LVL 5
                 {'S', ' ', ' ', '#', '#', ' ', ' ', ' ', 'T'},
-                {'#', '#', ' ', '#', ' ', ' ', '#', 'M', ' '},
+                {'#', '#', ' ', '#', 'M', ' ', '#', 'M', ' '},
                 {' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' '},
-                {' ', '#', 'M', ' ', ' ', ' ', '#', ' ', 'T'},
-                {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', 'E'}
-        }));
+                {' ', '#', 'M', ' ', ' ', ' ', '#', 'M', 'T'},
+                {'M', ' ', ' ', '#', ' ', 'M', ' ', '#', 'E'}
+        }, getRandomCurse()));
 
         levelList.add(new Level (new char[][]{      // LVL 6
                 {'S', '#', 'T', '#', ' ', ' ', 'T', ' ', ' ', ' '},
-                {' ', '#', ' ', '#', 'M', ' ', ' ', ' ', 'T', ' '},
+                {' ', '#', 'M', '#', 'M', ' ', ' ', ' ', 'T', ' '},
                 {' ', '#', 'T', '#', ' ', ' ', '#', '#', '#', ' '},
-                {' ', '#', ' ', '#', ' ', ' ', ' ', ' ', '#', ' '},
-                {' ', ' ', ' ', 'T', ' ', 'M', ' ', ' ', '#', ' '},
-                {' ', ' ', 'T', ' ', ' ', ' ', ' ', ' ', '#', ' '},
-                {' ', ' ', ' ', ' ', ' ', ' ', 'M', 'T', '#', 'E'}}
-        ));
+                {' ', '#', ' ', '#', ' ', ' ', ' ', 'M', '#', ' '},
+                {' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', '#', ' '},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', 'M'},
+                {'M', ' ', ' ', 'M', ' ', ' ', 'M', 'T', '#', 'E'}
+        }, getRandomCurse()));
 
-        levelList.add(new Level (new char[][] {     // LVL 1
-                {'S', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' '},
-                {'#', '#', '#', '#', '#', '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'T'},
-                {' ', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', '#', '#'},
-                {' ', '#', '#', '#', ' ', '#', ' ', '#', 'T', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        levelList.add(new Level (new char[][] {     // LVL 7
+                {'S', '#', ' ', 'M', ' ', 'E'},
+                {' ', '#', 'M', '#', 'M', ' '},
+                {' ', '#', 'T', '#', ' ', 'M'},
+                {' ', '#', ' ', '#', 'M', 'T'},
+                {'M', ' ', 'M', '#', 'T', 'M'}
+        }, getRandomCurse()));
+
+        levelList.add(new Level (new char[][] {     // LVL 8
+                {'S', ' ', 'T', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' '},
+                {'#', '#', '#', '#', '#', '#', ' ', '#', ' ', 'M', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'T'},
+                {' ', ' ', ' ', ' ', 'M', '#', ' ', '#', 'M', '#', '#', '#', '#', ' ', '#', '#', '#', '#'},
+                {' ', '#', '#', '#', ' ', '#', ' ', '#', 'T', '#', ' ', ' ', ' ', 'M', ' ', ' ', ' ', ' '},
                 {' ', ' ', 'T', '#', ' ', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', '#', ' ', ' '},
-                {' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' '},
-                {' ', 'M', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', 'M', ' ', '#', ' ', ' '},
-                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'T', ' ', 'T', '#', ' ', ' '},
+                {' ', ' ', ' ', '#', ' ', ' ', 'M', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' '},
+                {' ', 'M', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', 'M', ' ', '#', ' ', 'M'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' ', ' ', 'T', 'M', 'T', '#', ' ', ' '},
                 {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', 'M', ' ', '#', 'M', ' '},
-                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' '},
-                {' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' '},
-                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                {' ', ' ', 'M', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {' ', ' ', ' ', ' ', 'M', ' ', ' ', 'M', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' '},
+                {' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', 'M'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                {'M', ' ', 'M', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
                 {' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                {' ', ' ', 'M', ' ', '#', ' ', '#', '#', '#', '#', ' ', ' ', '#', '#', '#', '#', ' ', ' '},
-                {' ', ' ', ' ', ' ', '#', ' ', '#', 'T', ' ', ' ', ' ', 'M', '#', 'M', 'T', '#', ' ', ' '},
+                {' ', ' ', 'M', ' ', '#', ' ', '#', '#', '#', '#', ' ', ' ', '#', '#', '#', '#', 'M', 'M'},
+                {'M', ' ', ' ', ' ', '#', ' ', '#', 'T', ' ', ' ', 'M', 'M', '#', 'M', 'T', '#', ' ', ' '},
                 {' ', ' ', 'M', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', '#', 'T', ' '},
-                {'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', 'E'}
-        }));
+                {'T', ' ', ' ', ' ', 'M', ' ', ' ', ' ', ' ', 'M', ' ', ' ', ' ', 'M', 'M', '#', '#', 'E'}
+        }, getRandomCurse()));
     }
 
     private void cargarNivel(Level level)   // Cargar el nivel actual limpiando el historial del anterior en cuanto a tesoros y monstruos
@@ -148,6 +156,7 @@ public class Dungeon {
         treasureList.clear();
         mapa = level.getMapa();
         isMapLoaded = false;
+        level.aplicarEfecto(this);
     }
 
     private void moverEnemigos()
@@ -237,7 +246,8 @@ public class Dungeon {
             if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() == 0)
             {
                 Scanner sc = new Scanner(System.in);
-                System.out.println("\n\n\n\n<- Un monstruo te ha cazado y te propone una adivinanza para tu salvación ->");
+                System.out.println("\n\n\n\n<- Un monstruo te ha cazado y te propone una adivinanza para tu salvación ->\n");
+
                 int numAdivinanza = random.nextInt(RiddleController.adivinanzas.size());
                 RiddleData adivinanza = RiddleController.adivinanzas.get(numAdivinanza);
                 System.out.println("|| " + adivinanza.getAdivinanza() + " ||\n" +
@@ -247,26 +257,29 @@ public class Dungeon {
 
                 int numRespuesta;
                 do{
+                    System.out.println("\n<- Opcion: ");
                     numRespuesta = sc.nextInt();
-                } while (numRespuesta > 0 && numRespuesta < 4);
+                    if (numRespuesta <= 0 || numRespuesta > 3)
+                        System.out.println("<!- Opción no válida -!>");
+                } while (numRespuesta <= 0 || numRespuesta > 3);
 
                 if (adivinanza.isRespuestaCorrecta(adivinanza.getOpciones(numRespuesta)))
                 {
-                    System.out.println("<- TE HAS SALVADO DE LA MUERTE ->");
+                    System.out.println("<- CORRECTO! TE HAS SALVADO DE LA MUERTE ->\n");
                     monster.retrocederPosicion(mapa);
                 }
                 else
                 {
-                    System.out.println("<!========= HAS SIDO DERROTADO POR UN MONSTRUO =========!>");
+                    System.out.println("<!========= INCORRECTO! HAS SIDO DERROTADO POR UN MONSTRUO =========!>");
                     isEnd = true;
                 }
                 break;
             }
             else if (monster.getPosY() == player.getPosY() && monster.getPosX() == player.getPosX() && Player.getEscudos() > 0)
             {
-                System.out.println("<!- El monstruo te ha quitado 1 escudo, te quedan " + Player.getEscudos() + " escudos -!>");
-                monster.retrocederPosicion(mapa);
                 Player.restarEscudo();
+                monster.retrocederPosicion(mapa);
+                System.out.println("<!- El monstruo te ha quitado 1 escudo, te quedan " + Player.getEscudos() + " escudos -!>");
             }
         }
     }
@@ -291,9 +304,9 @@ public class Dungeon {
         if (player.getPosY() == posEscapeY && player.getPosX() == posEscapeX)
         {
             System.out.println("<!- Has escapado de la mazmorra con " + scoreSaved + " score -!>\n");
-            nivelActual++;
-            if (nivelActual < levelList.size())
-                cargarNivel(levelList.get(nivelActual));
+            numNivelActual++;
+            if (numNivelActual < levelList.size())
+                cargarNivel(levelList.get(numNivelActual));
             else
             {
                 System.out.println("<!- HAS COMPLETADO TODOS LOS NIVELES, FELICIDADES -!> \nby Ditarex\n");
@@ -311,6 +324,16 @@ public class Dungeon {
         {
             case 0: return new DisappearMonsterEffect(66);
             case 1: return new AddShieldEffect(66);
+            default: return null;
+        }
+    }
+
+    private IEffect getRandomCurse()
+    {
+        int randomEffect = random.nextInt(1);
+        switch (randomEffect)
+        {
+            case 0: return new SlowEffectCurse(66);
             default: return null;
         }
     }

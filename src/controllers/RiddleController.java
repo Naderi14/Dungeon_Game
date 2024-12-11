@@ -6,7 +6,7 @@ public class RiddleController {
 
     public static void crearAdivinanzas()
     {
-        adivinanzas.put(1, new RiddleData("Van dos y..", "Se cae el de la izquierda", "Se cae el de la derecha", "Se cae tu puta madre", "Se cae tu puta madre"));
+        adivinanzas.put(0, new RiddleData("Van dos y..", "Se cae el de la izquierda", "Se cae el de la derecha", "Se cae tu puta madre", "Se cae tu puta madre"));
         adivinanzas.put(1, new RiddleData("Soy alto cuando soy joven, y bajo cuando soy viejo. ¿Quién soy?", "Una vela", "Una montaña", "Una persona", "Una vela"));
         adivinanzas.put(2, new RiddleData("Cuanto más seco, más mojado. ¿Qué es?", "Una esponja", "Una toalla", "Un paraguas", "Una toalla"));
         adivinanzas.put(3, new RiddleData("¿Qué tiene ciudades pero no casas, montañas pero no árboles, y mares pero no agua?", "Un globo terráqueo", "Un mapa", "Un atlas", "Un mapa"));
@@ -53,8 +53,8 @@ public class RiddleController {
         adivinanzas.put(44, new RiddleData("Tiene una cola pero no es animal. ¿Qué es?", "Una moneda", "Un cometa", "Una cuerda", "Una moneda"));
         adivinanzas.put(45, new RiddleData("Se estira pero nunca se rompe. ¿Qué es?", "El chicle", "La piel", "El tiempo", "El tiempo"));
         adivinanzas.put(46, new RiddleData("Siempre te sigue pero nunca te alcanza. ¿Qué es?", "Tu sombra", "Tu reflejo", "Un sueño", "Tu sombra"));
-        adivinanzas.put(47, new RiddleData("No es un ser vivo, pero tiene raíces. ¿Qué es?", "Un árbol", "Una sombra", "Un diente", "Un árbol"));
-        adivinanzas.put(48, new RiddleData("Tiene cuartos pero no habitaciones. ¿Qué es?", "Una casa", "Una moneda", "Un reloj", "Una moneda"));
+        adivinanzas.put(47, new RiddleData("No es un ser vivo, pero tiene raíces. ¿Qué es?", "Un árbol", "Una sombra", "Un diente", "Un diente"));
+        adivinanzas.put(48, new RiddleData("Tiene cuartos pero no habitaciones. ¿Qué es?", "Una casa", "Una moneda", "Un reloj", "Un reloj"));
         adivinanzas.put(49, new RiddleData("Siempre está delante de ti pero nunca lo alcanzas. ¿Qué es?", "El futuro", "Tu reflejo", "Tu sombra", "El futuro"));
     }
 }

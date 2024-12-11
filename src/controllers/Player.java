@@ -30,7 +30,8 @@ public class Player {
         char[][] mapa = Dungeon.getMapa();
         boolean isAvailableMove = false;
         char letra;
-        System.out.println("S - Jugador / T - Tesoro / M - Monstruo / E - Escape\n(W) arriba | (A) izquierda | (S) abajo | (D) derecha            Score: " + scoreTotal);
+        System.out.println("S - Jugador / T - Tesoro / M - Monstruo / E - Escape\n(W) arriba | (A) izquierda | (S) abajo | (D) derecha            " +
+                "Score: " + scoreTotal + " | Escudos: " + escudos);
         while (!isAvailableMove)
         {
             letra = scanner.next().toUpperCase().charAt(0);

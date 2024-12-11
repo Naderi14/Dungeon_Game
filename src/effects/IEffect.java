@@ -7,3 +7,5 @@ public interface IEffect
     void aplicarEfecto(Dungeon dungeon);
     int getProbabilidad();
 }
+
+

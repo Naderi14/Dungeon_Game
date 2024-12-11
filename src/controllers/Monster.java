@@ -31,25 +31,59 @@ public class Monster {
     {
         Random random = new Random();
         boolean isAvailableMove = false;
+        boolean up = false, down = false, left = false, right = false;
 
         while(!isAvailableMove)
         {
             int tempX = 0, tempY = 0;
             int vectorDirection = random.nextInt(4) + 1;
 
+            if (up && down && left && right)
+            {
+                planX = posX;
+                planY = posY;
+                break;
+            }
+
             switch (vectorDirection)
             {
                 case 1: // Arriba
-                    tempY = -1;
+                    if (!up)
+                    {
+                        tempY = -1;
+                        up = true;
+                    }
+                    else
+                        continue;
                     break;
                 case 2: // Izquierda
-                    tempX = -1;
+                    if (!left)
+                    {
+                        tempX = -1;
+                        left = true;
+                    }
+                    else
+                        continue;
                     break;
                 case 3: // Abajo
-                    tempY = 1;
+                    if (!down)
+                    {
+                        tempY = 1;
+                        down = true;
+                    }
+                    else
+                        continue;
                     break;
                 case 4: // Derecha
-                    tempX = 1;
+                    if (!right)
+                    {
+                        tempX = 1;
+                        right = true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                     break;
             }
 
@@ -64,13 +98,11 @@ public class Monster {
                     planY = newY;
                     isAvailableMove = true;
                 }
-
-                else if (mapa[newY][newX] == 'M')
+                /*else if (mapa[newY][newX] == 'M')
                 {
-
                     isAvailableMove = true;
                     planearMove(mapa);
-                }
+                }*/
             }
         }
     }
